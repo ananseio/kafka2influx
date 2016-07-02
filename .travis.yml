@@ -15,7 +15,7 @@ addons:
       - g++-4.8
 
 before_install:
-  - wget https://dl.influxdata.com/influxdb/releases/influxdb_0.13.0_amd64.deb
+  - curl -1 -k https://dl.influxdata.com/influxdb/releases/influxdb_0.13.0_amd64.deb -O
   - sudo dpkg -i influxdb_0.13.0_amd64.deb
   - sudo service influxdb start
   - wget http://www.us.apache.org/dist/kafka/0.10.0.0/kafka_2.11-0.10.0.0.tgz -O kafka.tgz
