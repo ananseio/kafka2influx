@@ -1,0 +1,39 @@
+{
+  "name": "kafka2influx",
+  "version": "0.0.0",
+  "description": "Stream Kafka topic into Influx",
+  "scripts": {
+    "test": "./node_modules/.bin/istanbul cover --report lcov --report text --report html ./node_modules/.bin/_mocha -- -t 15000"
+  },
+  "author": "Beda Tse <bedatse@ananse.io>",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "bitbucket:ananse/module-seed.git"
+  },
+  "devDependencies": {
+    "bunyan": "^1.8.1",
+    "chai": "^3.5.0",
+    "esformatter": "^0.9.5",
+    "esformatter-add-trailing-commas": "^1.1.0",
+    "esformatter-curly": "0.0.1",
+    "esformatter-eol-last": "^1.0.0",
+    "esformatter-quotes": "^1.1.0",
+    "eslint": "^2.13.1",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-bdd": "^2.1.0",
+    "eslint-plugin-import": "^1.9.2",
+    "eslint-plugin-jsx-a11y": "^1.5.3",
+    "eslint-plugin-mocha": "^3.0.0",
+    "eslint-plugin-react": "^5.2.2",
+    "istanbul": "^0.4.4",
+    "mocha": "^2.5.3"
+  },
+  "dependencies": {
+    "bunyan-nokafka": "^1.1.0",
+    "influx": "^4.2.0",
+    "no-kafka": "^2.5.5",
+    "seamless-immutable": "^6.1.1"
+  },
+  "main": "./index.js"
+}

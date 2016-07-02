@@ -1,0 +1,32 @@
+language: node_js
+node_js:
+  - "6"
+
+env:
+  - CXX=g++-4.8
+
+addons:
+  code_climate:
+    repo_token: 4ff5f6b16f90e3ebf6909746fb770348c8a9370d6075c605d17ad5d2897072a8
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+
+before_install:
+  - wget http://s3.amazonaws.com/influxdb/influxdb_latest_amd64.deb
+  - sudo dpkg -i influxdb_latest_amd64.deb
+  - sudo service influxdb start
+  - wget http://www.us.apache.org/dist/kafka/0.10.0.0/kafka_2.11-0.10.0.0.tgz -O kafka.tgz
+  - mkdir -p kafka && tar xzf kafka.tgz -C kafka --strip-components 1
+  - nohup bash -c "cd kafka && bin/zookeeper-server-start.sh config/zookeeper.properties &"
+  - sleep 10
+  - nohup bash -c "cd kafka && bin/kafka-server-start.sh config/server.properties &"
+  - sleep 10
+  - kafka/bin/kafka-topics.sh --zookeeper 127.0.0.1:2181 --create --topic kafka2influx_bunyanLogs --partitions 4 --replication-factor 1
+  - influx -host localhost -port 8086 -username username -password password -execute 'CREATE DATABASE kafka2influx_testdb'
+
+after_script:
+  - npm install -g codeclimate-test-reporter
+  - CODECLIMATE_REPO_TOKEN=4ff5f6b16f90e3ebf6909746fb770348c8a9370d6075c605d17ad5d2897072a8 codeclimate-test-reporter < coverage/lcov.info
